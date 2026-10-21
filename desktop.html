@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop OS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Startup fade-in overlay -->
+    <div class="startup-overlay" id="startup-overlay" aria-hidden="true"></div>
+
+    <!-- Random background — one layer per side bar -->
+    <div class="slideshow slideshow-left"  id="slideshow-left"  aria-hidden="true"></div>
+    <div class="slideshow slideshow-right" id="slideshow-right" aria-hidden="true"></div>
+
+    <div class="app-window">
+
+        <div class="main-screen">
+
+            <div class="desktop-area">
+
+                <div class="icon-list">
+
+                    <div class="desktop-icon" role="button" tabindex="0" id="birthday-icon" aria-label="Open A Birthday Letter to Lya">
+                        <img src="images/desktop/textdoc.png" alt="" class="icon-img">
+                        <div class="icon-label">A Birthday Letter to Lya</div>
+                    </div>
+
+                    <div class="desktop-icon" role="button" tabindex="0" id="heart-clicker" aria-label="Open Heart Clicker">
+                        <img src="images/desktop/heart.png" alt="" class="icon-img">
+                        <div class="icon-label">Heart Clicker</div>
+                    </div>
+                </div>
+
+                <!-- Letter window -->
+                <div class="window-overlay" id="letter-window" role="dialog" aria-modal="true" aria-labelledby="letter-window-title" aria-hidden="true">
+                    <div class="window">
+                        <div class="window-titlebar">
+                            <span class="window-title" id="letter-window-title">A Birthday Letter to Lya</span>
+                            <div class="window-close" id="letter-close" role="button" tabindex="0" aria-label="Close"><img src="images/windows/close_button.png" alt="" class="window-close-img"></div>
+                        </div>
+                        <div class="window-content">
+Hello, Lya!
+
+Happy birthday to you! I'm so happy that I get to celebrate your birthday together with you. Time flies so fast whenever I'm with you. I can't believe it's been almost 3 months since we became together.
+
+I know I haven't been a perfect girlfriend to you. There are times where I did things wrong, and I'm sorry for hurting you. It was never my intention to hurt you, it never was. Even though I haven't been a perfect girlfriend to you, I'm doing my best to be at least the best partner for you. 
+
+Thank you for loving me, Lya. I love you so much, and I'll do anything to be with you. I hope you enjoy your day, and I hope we stay together forever!
+
+Love,
+Your wonderful girlfriend, Elle
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Heart Clicker window -->
+                <div class="window-overlay" id="heart-window" role="dialog" aria-modal="true" aria-labelledby="heart-window-title" aria-hidden="true">
+                    <div class="window">
+                        <div class="window-titlebar">
+                            <span class="window-title" id="heart-window-title">Heart Clicker</span>
+                            <div class="window-close" id="heart-close" role="button" tabindex="0" aria-label="Close"><img src="images/windows/close_button.png" alt="" class="window-close-img"></div>
+                        </div>
+                        <div class="window-content heart-clicker-content" id="heart-clicker-content">
+                            <img src="images/desktop/heart.png" alt="" class="heart-big">
+                            <div class="heart-clicker-hint">click for hearts</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="taskbar">
+
+            <div class="taskbar-left">
+
+                <div class="start-menu" id="start-menu" role="menu" aria-label="Start menu">
+                    <img src="images/taskbar/sidebar.png" alt="" class="start-menu-sidebar">
+                    <div class="restart-btn" id="restart-btn" role="button" tabindex="0" aria-label="Restart"><img src="images/taskbar/restart_normal.png" alt="Restart" class="restart-img restart-img-normal"><img src="images/taskbar/restart_pressed.png" alt="" class="restart-img restart-img-pressed"></div>
+                </div>
+
+                <div class="start-btn" role="button" tabindex="0" aria-label="Start menu" aria-pressed="false"><img src="images/taskbar/start_normal.png" alt="Start" class="start-img start-img-normal"><img src="images/taskbar/start_pressed.png" alt="" class="start-img start-img-pressed"></div>
+
+                <img src="images/taskbar/divider.png" alt="" class="taskbar-divider">
+
+                <div class="taskbar-quick-icons">
+                    <div class="taskbar-qicon" role="button" tabindex="0" aria-label="Twitter">
+                        <img src="images/taskbar/twitter.png" alt="" class="taskbar-qicon-img">
+                    </div>
+                    <div class="taskbar-qicon" role="button" tabindex="0" aria-label="JINE">
+                        <img src="images/taskbar/jine.png" alt="" class="taskbar-qicon-img">
+                    </div>
+                    <div class="taskbar-qicon" role="button" tabindex="0" aria-label="Computer">
+                        <img src="images/taskbar/computer.png" alt="" class="taskbar-qicon-img">
+                    </div>
+                </div>
+
+                <img src="images/taskbar/divider.png" alt="" class="taskbar-divider">
+
+            </div>
+
+            <div class="taskbar-right">
+                <div class="day-image-wrapper">
+                    <img src="images/taskbar/day_3969.png" alt="Day 1" class="day-image">
+                    <img src="images/taskbar/noon.png" alt="" class="noon-image">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <audio id="bg-music" loop preload="auto">
+        <source src="audio/angel_stagnating.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
