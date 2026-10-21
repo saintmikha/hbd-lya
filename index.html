@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome Window</title>
     <style>
-        /* --- 1. Load your local Pix32 font file here --- */
         @font-face {
             font-family: 'Pix32';
             src: url('Pix32.woff') format('woff'),
@@ -14,7 +13,6 @@
             font-style: normal;
         }
 
-        /* Reset and full-screen black background */
         body {
             background-color: #000000;
             margin: 0;
@@ -24,7 +22,6 @@
             overflow: hidden;
         }
 
-        /* Main Window Container (4:3, touches top/bottom edges) */
         .app-window {
             height: 100vh;
             aspect-ratio: 4 / 3;
@@ -34,7 +31,6 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
-        /* --- Top Pink Bar --- */
         .top-bar {
             height: 60px;
             background-color: #f297c8;
@@ -53,7 +49,6 @@
             cursor: pointer;
         }
 
-        /* --- Main Body Area --- */
         .main-body {
             flex: 1;
             background: radial-gradient(circle at 15% 20%, #ffffff 0%, #fae1f0 60%);
@@ -108,7 +103,6 @@
             object-fit: cover;
         }
 
-        /* --- Bottom Pink Bar --- */
         .bottom-bar {
             height: 60px;
             background-color: #f297c8;
@@ -148,10 +142,6 @@
 
         /* ============================================
            INTRO SEQUENCE
-             0.0s  → 1.5s  : fade from black to image
-             1.5s  → 7.0s  : hold on image (5.5s)
-             7.0s  → 8.5s  : fade image back to black
-             8.5s  → 10.0s : fade black away to reveal welcome screen
            ============================================ */
         .intro-overlay {
             position: fixed;
@@ -185,11 +175,6 @@
             opacity: 1;
         }
 
-        /* ============================================
-           EXIT SEQUENCE OVERLAY
-           Fades the welcome screen to black when the
-           kangel sprite is clicked, then navigates.
-           ============================================ */
         .fade-overlay {
             position: fixed;
             inset: 0;
@@ -204,36 +189,74 @@
             opacity: 1;
             pointer-events: auto;
         }
+
+        /* ============================================
+           CLICK-TO-START GATE
+           Blocks the intro until the user clicks once.
+           That click unlocks autoplay for boot.mp3.
+           ============================================ */
+        .gate-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #e0e0e0;
+            font-family: 'Pix32', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .gate-overlay.is-hidden {
+            display: none;
+        }
+
+        .gate-text {
+            font-size: 16px;
+            letter-spacing: 2px;
+            opacity: 0.65;
+            animation: gate-pulse 1.6s ease-in-out infinite;
+            text-align: center;
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+
+        @keyframes gate-pulse {
+            0%, 100% { opacity: 0.4; }
+            50%      { opacity: 0.85; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Boot audio — plays once on page load -->
     <audio id="boot-audio" preload="auto">
         <source src="audio/boot.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Exit SFX — plays when the kangel sprite is clicked -->
     <audio id="day-audio" preload="auto">
         <source src="audio/day.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Intro overlay -->
+    <!-- Click-to-start gate (needed to unlock autoplay) -->
+    <div class="gate-overlay" id="gate-overlay" role="button" tabindex="0" aria-label="Click to begin">
+        <div class="gate-text">click to begin</div>
+    </div>
+
     <div class="intro-overlay" id="intro-overlay" aria-hidden="true">
         <img src="images/start_menu/windose20.png" alt="" class="intro-image" id="intro-image">
     </div>
 
-    <!-- Exit fade-to-black overlay -->
     <div class="fade-overlay" id="fade-overlay"></div>
 
     <div class="app-window">
 
-        <!-- Top Bar -->
         <div class="top-bar">
             <svg class="settings-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4 20h3v-2h4v4h2v-4h4v2h-2v4H9v-4H7v2H2v-5h2v3Zm18 2h-5v-2h3v-3h2v5ZM6 11H2v2h4v4H4v-2H0V9h4V7h2v4Zm14-2h4v6h-4v2h-2v-4h4v-2h-4V7h2v2Zm-6 7h-4v-2h4v2Zm-4-2H8v-4h2v4Zm6 0h-2v-4h2v4Zm-2-4h-4V8h4v2ZM7 4H4v3H2V2h5v2Zm8 0h2V2h5v5h-2V4h-3v2h-4V2h-2v4H7V4h2V0h6v4Z"/></svg>
         </div>
 
-        <!-- Main Body -->
         <div class="main-body">
             <div class="left-half">
                 <span class="welcome-text">Welcome</span>
@@ -248,7 +271,6 @@
             </div>
         </div>
 
-        <!-- Bottom Bar -->
         <div class="bottom-bar">
             <div class="bottom-icons">
                 <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M18 22H6v-2h12v2ZM6 20H4v-2h2v2Zm14 0h-2v-2h2v2ZM4 18H2V8h2v10Zm18 0h-2V8h2v10Zm-9-7h-2V2h2v9ZM6 8H4V6h2v2Zm14 0h-2V6h2v2ZM8 6H6V4h2v2Zm10 0h-2V4h2v2Z"/></svg>
@@ -277,73 +299,72 @@
 
     </div>
 
-    <!-- INTRO SEQUENCE + BOOT AUDIO + EXIT SEQUENCE SCRIPT -->
     <script>
     /* ============================================
-       BOOT AUDIO — plays once on page load
+       CLICK-TO-START GATE + BOOT AUDIO + INTRO
        ============================================ */
     (function () {
+        const gate      = document.getElementById('gate-overlay');
         const bootAudio = document.getElementById('boot-audio');
-        if (!bootAudio) return;
+        const introOv   = document.getElementById('intro-overlay');
+        const introImg  = document.getElementById('intro-image');
 
-        let played = false;
-
-        const playBoot = () => {
-            if (played) return;
-            const p = bootAudio.play();
-            if (p && typeof p.then === 'function') {
-                p.then(() => { played = true; }).catch(() => {});
-            } else {
-                played = true;
-            }
-        };
-
-        playBoot();
-        document.addEventListener('pointerdown', playBoot, { once: true });
-        document.addEventListener('keydown', playBoot, { once: true });
-    })();
-
-    /* ============================================
-       INTRO SEQUENCE
-         0.0s  → 1.5s  : fade from black to image
-         1.5s  → 7.0s  : hold on image (5.5s)
-         7.0s  → 8.5s  : fade image back to black
-         8.5s  → 10.0s : fade black away to reveal welcome screen
-       ============================================ */
-    (function () {
-        const overlay = document.getElementById('intro-overlay');
-        const image   = document.getElementById('intro-image');
-        if (!overlay || !image) return;
+        if (!gate || !introOv || !introImg) return;
 
         const FADE_DURATION = 1500;
         const HOLD_DURATION = 5500;
 
+        let started = false;
+
         function runIntro() {
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    image.classList.add('is-visible');
+                    introImg.classList.add('is-visible');
                 });
             });
 
             setTimeout(() => {
-                image.classList.remove('is-visible');
+                introImg.classList.remove('is-visible');
             }, FADE_DURATION + HOLD_DURATION);
 
             setTimeout(() => {
-                overlay.classList.add('is-hidden');
+                introOv.classList.add('is-hidden');
             }, FADE_DURATION + HOLD_DURATION + FADE_DURATION);
 
             setTimeout(() => {
-                overlay.remove();
+                introOv.remove();
             }, FADE_DURATION + HOLD_DURATION + FADE_DURATION + FADE_DURATION);
         }
 
-        if (image.complete) {
-            runIntro();
-        } else {
-            image.addEventListener('load',  runIntro, { once: true });
-            image.addEventListener('error', runIntro, { once: true });
+        function start() {
+            if (started) return;
+            started = true;
+
+            // 1. Play boot.mp3 — user gesture unlocks this
+            if (bootAudio) {
+                bootAudio.currentTime = 0;
+                bootAudio.play().catch(() => {});
+            }
+
+            // 2. Remove gate
+            gate.classList.add('is-hidden');
+
+            // 3. Kick off intro (wait for image if not yet loaded)
+            if (introImg.complete) {
+                runIntro();
+            } else {
+                introImg.addEventListener('load',  runIntro, { once: true });
+                introImg.addEventListener('error', runIntro, { once: true });
+            }
         }
+
+        gate.addEventListener('click', start);
+        gate.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                start();
+            }
+        });
     })();
 
     /* ============================================
@@ -352,8 +373,8 @@
          fade to black over 1.5s → navigate to desktop.html
        ============================================ */
     (function () {
-        const enterLink  = document.getElementById('enter-link');
-        const dayAudio   = document.getElementById('day-audio');
+        const enterLink   = document.getElementById('enter-link');
+        const dayAudio    = document.getElementById('day-audio');
         const fadeOverlay = document.getElementById('fade-overlay');
 
         if (!enterLink || !fadeOverlay) return;
@@ -365,17 +386,14 @@
             if (started) return;
             started = true;
 
-            // 1. Play the exit SFX
             if (dayAudio) {
                 dayAudio.currentTime = 0;
                 dayAudio.play().catch(() => {});
             }
 
-            // 2. Wait 2s, then fade to black over 1.5s
             setTimeout(() => {
                 fadeOverlay.classList.add('is-active');
 
-                // 3. After the fade completes (1.5s), navigate
                 setTimeout(() => {
                     window.location.href = 'desktop.html';
                 }, 1500);
