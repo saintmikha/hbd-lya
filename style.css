@@ -370,7 +370,7 @@ body {
 .window {
     --frame-border-x: 6px;
     --frame-border-y: 6px;
-    --titlebar-height: 88px;
+    --titlebar-height: 84px;
 
     position: absolute;
     left: 50%;
@@ -497,6 +497,82 @@ body {
 }
 
 /* ============================================
+   FOLDER WINDOW
+   ============================================ */
+.folder-content {
+    padding: 12px 12px 18px 16px;
+    white-space: normal;
+}
+
+.folder-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px;
+    align-content: start;
+}
+
+.folder-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 6px;
+    border-radius: 3px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.12s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.folder-item:hover {
+    background: rgba(129, 92, 218, 0.15);
+}
+
+.folder-item:focus-visible {
+    outline: 2px solid #7fa2fa;
+    outline-offset: -2px;
+}
+
+.folder-item-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    margin-bottom: 6px;
+    display: block;
+    -webkit-user-drag: none;
+    user-select: none;
+    pointer-events: none;
+}
+
+.folder-item-label {
+    font-size: 11px;
+    color: #2b2040;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* ============================================
+   REMINDER
+   Margin shrinks the element itself, so the
+   background image visibly insets from the
+   window edges. Padding then positions the text
+   inside that visible image area.
+   ============================================ */
+.reminder-content {
+    margin: 0 13px 48px 13px;
+    padding: 24px 8px 8px 8px;
+    background-image: url('images/bg/reminder_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #2b2040;
+    font-size: 16px;
+}
+
+/* ============================================
    HEART CLICKER
    ============================================ */
 .heart-clicker-content {
@@ -508,9 +584,6 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Big heart — centered on the WINDOW frame (not content area),
-   which requires shifting up by half the titlebar-vs-bottom
-   padding difference. */
 .heart-big {
     position: absolute;
     top: calc(50% - (var(--titlebar-height) - var(--frame-border-y)) / 2);
@@ -528,7 +601,6 @@ body {
     cursor: pointer;
 }
 
-/* Tap animation — shrink to 95% for ~1 visible frame */
 .heart-big.is-tapped {
     animation: heart-tap 0.06s linear;
 }
@@ -539,7 +611,6 @@ body {
     100% { transform: translate(-50%, -50%) scale(1);    }
 }
 
-/* Hint text — bottom of content so it doesn't overlap the big heart */
 .heart-clicker-hint {
     position: absolute;
     bottom: 24px;
@@ -559,7 +630,6 @@ body {
     opacity: 0;
 }
 
-/* Floating heart sprite */
 .floating-heart {
     position: absolute;
     pointer-events: none;
