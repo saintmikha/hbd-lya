@@ -70,7 +70,7 @@ function closeOtherWindows(exceptId) {
     });
 }
 
-function setupDraggableWindow(windowId, iconId, closeId) {
+function setupDraggableWindow(windowId, iconId, closeId, options = {}) {
     const icon     = document.getElementById(iconId);
     const windowEl = document.getElementById(windowId);
     const closeBtn = document.getElementById(closeId);
@@ -117,25 +117,15 @@ function setupDraggableWindow(windowId, iconId, closeId) {
         let newOffsetX = startOffsetX + (e.clientX - startPointerX);
         let newOffsetY = startOffsetY + (e.clientY - startPointerY);
 
-        // The overlay (.window-overlay) is inset:0 inside .desktop-area,
-        // so overlayRect = the full desktop area:
-        //   top    = top of the app-window (top of the "tab")
-        //   left   = left sidebar edge
-        //   right  = right sidebar edge
-        //   bottom = top edge of the taskbar
         const overlayRect = windowEl.getBoundingClientRect();
         const winW = frame.offsetWidth;
         const winH = frame.offsetHeight;
 
-        // Full containment: window must stay entirely inside the overlay.
-        // (Window is centered via translate(-50%, -50%), so bounds are
-        //  expressed as offsets from the overlay's center.)
         const minOffsetX = -overlayRect.width / 2 + winW / 2;
         const maxOffsetX =  overlayRect.width / 2 - winW / 2;
         const minOffsetY = -overlayRect.height / 2 + winH / 2;
         const maxOffsetY =  overlayRect.height / 2 - winH / 2;
 
-        // Guard against negative range (window larger than overlay).
         if (minOffsetX > maxOffsetX) {
             newOffsetX = (minOffsetX + maxOffsetX) / 2;
         } else {
@@ -167,7 +157,15 @@ function setupDraggableWindow(windowId, iconId, closeId) {
 
     const setOpen = (open) => {
         if (open) {
-            closeOtherWindows(windowId);
+            if (!options.keepOthers) {
+                closeOtherWindows(windowId);
+            } else {
+                document.querySelectorAll('.window-overlay.is-open').forEach((el) => {
+                    if (el.id === windowId) return;
+                    const f = el.querySelector('.window');
+                    if (f) f.classList.add('is-inactive');
+                });
+            }
             windowEl.classList.add('is-open');
             windowEl.setAttribute('aria-hidden', 'false');
             setActive(true);
@@ -202,8 +200,11 @@ function setupDraggableWindow(windowId, iconId, closeId) {
     return { setOpen };
 }
 
-setupDraggableWindow('letter-window', 'birthday-icon', 'letter-close');
-setupDraggableWindow('heart-window',  'heart-clicker', 'heart-close');
+setupDraggableWindow('folder-window',       'for-lya-icon',     'folder-close');
+setupDraggableWindow('letter-window',       'letter-item',      'letter-close',       { keepOthers: true });
+setupDraggableWindow('three-months-window', 'three-months-item', 'three-months-close', { keepOthers: true });
+setupDraggableWindow('reminder-window',     'reminder-icon',    'reminder-close');
+setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
 
 /* ============================================
    HEART CLICKER — spawn floating heart sprites + SFX
