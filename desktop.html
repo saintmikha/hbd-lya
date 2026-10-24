@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desktop OS</title>
+    <title>Lya's Desktop</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,14 +23,44 @@
 
                 <div class="icon-list">
 
-                    <div class="desktop-icon" role="button" tabindex="0" id="birthday-icon" aria-label="Open A Birthday Letter to Lya">
-                        <img src="images/desktop/textdoc.png" alt="" class="icon-img">
-                        <div class="icon-label">A Birthday Letter to Lya</div>
+                    <div class="desktop-icon" role="button" tabindex="0" id="for-lya-icon" aria-label="Open For Lya folder">
+                        <img src="images/desktop/folder.png" alt="" class="icon-img">
+                        <div class="icon-label">For Lya</div>
                     </div>
 
                     <div class="desktop-icon" role="button" tabindex="0" id="heart-clicker" aria-label="Open Heart Clicker">
                         <img src="images/desktop/heart.png" alt="" class="icon-img">
                         <div class="icon-label">Heart Clicker</div>
+                    </div>
+
+                    <div class="desktop-icon" role="button" tabindex="0" id="reminder-icon" aria-label="Open Reminder">
+                        <img src="images/desktop/reminder.png" alt="" class="icon-img">
+                        <div class="icon-label">Reminder</div>
+                    </div>
+                </div>
+
+                <!-- "For Lya" folder window -->
+                <div class="window-overlay" id="folder-window" role="dialog" aria-modal="true" aria-labelledby="folder-window-title" aria-hidden="true">
+                    <div class="window">
+                        <div class="window-titlebar">
+                            <span class="window-title" id="folder-window-title">For Lya</span>
+                            <div class="window-close" id="folder-close" role="button" tabindex="0" aria-label="Close"><img src="images/windows/close_button.png" alt="" class="window-close-img"></div>
+                        </div>
+                        <div class="window-content folder-content">
+                            <div class="folder-items">
+
+                                <div class="folder-item" role="button" tabindex="0" id="letter-item" aria-label="Open A Birthday Letter to Lya">
+                                    <img src="images/desktop/textdoc.png" alt="" class="folder-item-icon">
+                                    <div class="folder-item-label">A Birthday Letter to Lya</div>
+                                </div>
+
+                                <div class="folder-item" role="button" tabindex="0" id="three-months-item" aria-label="Open Three Months With You">
+                                    <img src="images/desktop/textdoc.png" alt="" class="folder-item-icon">
+                                    <div class="folder-item-label">Three Months With You</div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -38,7 +68,7 @@
                 <div class="window-overlay" id="letter-window" role="dialog" aria-modal="true" aria-labelledby="letter-window-title" aria-hidden="true">
                     <div class="window">
                         <div class="window-titlebar">
-                            <span class="window-title" id="letter-window-title">A Birthday Letter to Lya</span>
+                            <span class="window-title" id="letter-window-title">A Birthday Letter to Lya (October 22, 2026)</span>
                             <div class="window-close" id="letter-close" role="button" tabindex="0" aria-label="Close"><img src="images/windows/close_button.png" alt="" class="window-close-img"></div>
                         </div>
                         <div class="window-content">
@@ -52,6 +82,47 @@ Thank you for loving me, Lya. I love you so much, and I'll do anything to be wit
 
 Love,
 Your wonderful girlfriend, Elle
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Three Months With You window -->
+                <div class="window-overlay" id="three-months-window" role="dialog" aria-modal="true" aria-labelledby="three-months-window-title" aria-hidden="true">
+                    <div class="window">
+                        <div class="window-titlebar">
+                            <span class="window-title" id="three-months-window-title">Three Months With You (October 24, 2026)</span>
+                            <div class="window-close" id="three-months-close" role="button" tabindex="0" aria-label="Close"><img src="images/windows/close_button.png" alt="" class="window-close-img"></div>
+                        </div>
+                        <div class="window-content">
+Three months with you.
+
+I can't believe it's been 3 months since we became together. To be honest, I had a crush on you even before you confessed to me. I was scared to confess because I thought you're too pretty to give me a chance. Turns out, you were thinking the same, too. 
+
+After that day, I fell in love with you more than I did yesterday, and I fall in love even more every single day. I get captivated by your energy, your laughs, and especially your charm. The first time I heard your voice, I couldn't stop smiling. Your voice is just as charming and energetic as I'd expected. 
+
+I know we had our disagreements and misunderstandings, and I'm really sorry for my mistakes. I'm not a perfect girlfriend, but I do my best to be the best partner to you as I can. Even though we had our misunderstandings, we're still standing strong together, and we keep breaking our problems. 
+
+I love you, Lya. I will love you and only you forever and ever. I'll do anything to make you happy. You deserve the whole world. Hell, you deserve the whole universe. I know you didn't have the best experience with your exes, but I'm here to treat you the way you want to be treated. I guarantee that. Again, I love you. I'll take care of you. You're the best thing that happened to me this year, and I'm hoping it'd stay the same way for the following years. 
+
+Love,
+Elle
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reminder window -->
+                <div class="window-overlay" id="reminder-window" role="dialog" aria-modal="true" aria-labelledby="reminder-window-title" aria-hidden="true">
+                    <div class="window">
+                        <div class="window-titlebar">
+                            <span class="window-title" id="reminder-window-title">Reminder</span>
+                            <div class="window-close" id="reminder-close" role="button" tabindex="0" aria-label="Close"><img src="images/windows/close_button.png" alt="" class="window-close-img"></div>
+                        </div>
+                        <div class="window-content reminder-content">
+This website is just a small proof that I'll do anything for you. I love you to the moon and back, Lya. You're the only person I'll ever love, and it'll stay that way forever. You're the ray of sunshine I need in this world full of darkness. You're the rainbow that I long for after the rain.
+
+I couldn't imagine a life without you. My days are so much better whenever I see you. My face brightens up whenever I talk to you. Your energy eliminates all my problems.
+
+Thank you for loving me, Lya. I'll keep loving you more than you expect, because you deserve to be loved the way you want to be loved. I know you still have trust issues due to these trashy men you dated, but I'll make sure you'll be loved by me and I'll always reassure you that I love you and only you. This feeling will never change. 
                         </div>
                     </div>
                 </div>
@@ -105,7 +176,7 @@ Your wonderful girlfriend, Elle
 
             <div class="taskbar-right">
                 <div class="day-image-wrapper">
-                    <img src="images/taskbar/day_6940.png" alt="Day 6940" class="day-image">
+                    <img src="images/taskbar/day_6940.png" alt="Day 1" class="day-image">
                     <img src="images/taskbar/noon.png" alt="" class="noon-image">
                 </div>
             </div>
