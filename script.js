@@ -351,7 +351,7 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
     
     if (!chatContainer || !closeBtn || !messagesArea || !inputField || !sendBtn) return;
 
-    const SERVER_URL = 'http://localhost:3000';
+    const SERVER_URL = 'https://hbd-lya.onrender.com';
 
     // --- Open / Close Logic ---
     // Closing terminates the session (socket disconnects). The messages already
