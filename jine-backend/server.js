@@ -159,6 +159,7 @@ const DISCORD_CHANNEL_ID = process.env.DISCORD_CHANNEL_ID;
 
 client.once('ready', () => {
   console.log(`Bot logged in as ${client.user.tag}`);
+  refreshHistory(true);
 });
 
 // Messages are handled one at a time, in order, so a message that has to wait
@@ -174,11 +175,65 @@ client.on('messageCreate', (message) => {
     .catch((err) => console.error('Error relaying message:', err));
 });
 
-// Type  !clearjine  in the Discord channel to wipe the JINE chat history
+// --- HISTORY FROM DISCORD ---
+// Render's free plan wipes saved files on every restart, so messages.json can't be trusted.
+// The Discord channel itself is the real history: Elle's messages are hers, and anything
+// the bot posted is Lya's (JINE sends her messages through the bot). On startup, and
+// whenever she connects (at most every 10 minutes), the bot re-reads the channel.
+// That also hands out fresh picture/video links, so they don't expire like saved ones do.
+// Everything before the most recent !clearjine in the channel is left out.
+const HISTORY_REFRESH_MS = 10 * 60 * 1000;
+let lastHistoryRefresh = 0;
+let historyRefreshing = null;
+
+const isClearCommand = (text) => (text || '').trim().toLowerCase() === CLEAR_COMMAND;
+
+async function loadHistoryFromDiscord() {
+  const channel = await client.channels.fetch(DISCORD_CHANNEL_ID);
+  const fetched = await channel.messages.fetch({ limit: 100 });
+  const msgs = [...fetched.values()].sort((a, b) => a.createdTimestamp - b.createdTimestamp);
+
+  // Only keep what came after the last "!clearjine" typed by a person
+  let start = 0;
+  msgs.forEach((m, i) => { if (!m.author.bot && isClearCommand(m.content)) start = i + 1; });
+
+  const entries = [];
+  for (const m of msgs.slice(start)) {
+    const isLya = m.author.id === client.user.id;      // posted by this bot = Lya's message
+    if (m.author.bot && !isLya) continue;              // ignore other bots
+    const text = m.content || '';
+    const media = collectMedia(m);
+    if (!text && !media.length) continue;
+    entries.push({ text, media, sender: isLya ? 'lya' : 'elle', timestamp: m.createdAt.toISOString() });
+  }
+  return entries.slice(-MAX_MESSAGES);
+}
+
+function refreshHistory(force = false) {
+  if (!force && Date.now() - lastHistoryRefresh < HISTORY_REFRESH_MS) return Promise.resolve();
+  if (historyRefreshing) return historyRefreshing;
+  historyRefreshing = (async () => {
+    try {
+      chatHistory = await loadHistoryFromDiscord();
+      lastHistoryRefresh = Date.now();
+      persistHistory();
+      console.log(`Loaded ${chatHistory.length} messages of history from Discord.`);
+    } catch (err) {
+      console.error('Could not load history from Discord (using what is in memory):', err.message);
+    } finally {
+      historyRefreshing = null;
+    }
+  })();
+  return historyRefreshing;
+}
+
+// Type  !clearjine  in the Discord channel to wipe the JINE chat history.
+// Keep that message in the channel: it marks where the history starts, even after a restart.
 const CLEAR_COMMAND = '!clearjine';
 
 async function clearHistory(message) {
   chatHistory = [];
+  lastHistoryRefresh = Date.now();
   persistHistory();
   io.emit('chat-history', []);          // empties the chat window for anyone who has it open
   console.log('Chat history cleared from Discord.');
@@ -213,9 +268,6 @@ client.login(process.env.DISCORD_BOT_TOKEN);
 // --- WEBSOCKET ---
 io.on('connection', (socket) => {
   console.log('Lya connected to JINE');
-
-  // Send existing history when she connects
-  socket.emit('chat-history', chatHistory);
 
   socket.on('send-to-discord', async (data) => {
     try {
@@ -288,6 +340,9 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('Lya disconnected');
   });
+
+  // Send the history when she connects (re-read from Discord first if it's been a while)
+  refreshHistory().finally(() => socket.emit('chat-history', chatHistory));
 });
 
 // --- START ---
