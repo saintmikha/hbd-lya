@@ -6,6 +6,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Minecraftia';
+    src: url('Minecraftia-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -56,14 +63,8 @@ body {
     pointer-events: none;
 }
 
-.slideshow-left {
-    left: 0;
-}
-
-.slideshow-right {
-    right: 0;
-    transform: scaleX(-1);
-}
+.slideshow-left { left: 0; }
+.slideshow-right { right: 0; transform: scaleX(-1); }
 
 .app-window {
     position: relative;
@@ -115,15 +116,8 @@ body {
     transition: opacity 0.15s ease;
 }
 
-.desktop-icon:hover {
-    opacity: 0.85;
-}
-
-.desktop-icon:focus-visible {
-    outline: 2px solid #7fa2fa;
-    outline-offset: 2px;
-    border-radius: 2px;
-}
+.desktop-icon:hover { opacity: 0.85; }
+.desktop-icon:focus-visible { outline: 2px solid #7fa2fa; outline-offset: 2px; border-radius: 2px; }
 
 .icon-img {
     width: 40px;
@@ -145,40 +139,6 @@ body {
     word-wrap: break-word;
 }
 
-.icon-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    width: 16px;
-    height: 16px;
-    background: #fff;
-    border: 2px solid #6a6af0;
-    border-radius: 50%;
-    font-size: 10px;
-    font-weight: bold;
-    color: #6a6af0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.faded-icon {
-    opacity: 0.3;
-}
-
-.center-icon {
-    position: absolute;
-    right: 50%;
-    top: 40%;
-    transform: translate(50%, -50%);
-    opacity: 0.2;
-}
-
-.center-icon .icon-label {
-    text-shadow: none;
-    color: #aaa;
-}
-
 /* TASKBAR */
 .taskbar {
     height: 50px;
@@ -192,12 +152,7 @@ body {
     flex-shrink: 0;
 }
 
-.taskbar-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    position: relative;
-}
+.taskbar-left { display: flex; align-items: center; gap: 15px; position: relative; }
 
 .taskbar-divider {
     display: block;
@@ -210,16 +165,10 @@ body {
     width: auto;
 }
 
-.taskbar-quick-icons {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+.taskbar-quick-icons { display: flex; align-items: center; gap: 10px; }
 
 /* CLICKABLE ELEMENTS */
-.start-btn,
-.restart-btn,
-.taskbar-qicon {
+.start-btn, .restart-btn, .taskbar-qicon {
     display: inline-grid;
     place-items: center;
     padding: 0;
@@ -231,59 +180,29 @@ body {
     user-select: none;
 }
 
-.start-btn,
-.restart-btn {
-    min-width: 96px;
-    min-height: 34px;
-}
+.start-btn, .restart-btn { min-width: 96px; min-height: 34px; }
 
-.start-btn:focus-visible,
-.restart-btn:focus-visible,
-.taskbar-qicon:focus-visible {
+.start-btn:focus-visible, .restart-btn:focus-visible, .taskbar-qicon:focus-visible {
     outline: 2px solid #7fa2fa;
     outline-offset: 1px;
 }
 
-.start-btn img,
-.restart-btn img,
-.taskbar-qicon img {
+.start-btn img, .restart-btn img, .taskbar-qicon img {
     pointer-events: none;
     -webkit-user-drag: none;
     user-select: none;
 }
 
-.start-img,
-.restart-img {
-    grid-area: 1 / 1;
-    display: block;
-    image-rendering: pixelated;
-}
+.start-img, .restart-img { grid-area: 1 / 1; display: block; image-rendering: pixelated; }
+.start-img-pressed, .restart-img-pressed { visibility: hidden; }
 
-.start-img-pressed,
-.restart-img-pressed {
-    visibility: hidden;
-}
+.start-btn:active .start-img-normal, .start-btn.is-pressed .start-img-normal,
+.restart-btn:active .restart-img-normal, .restart-btn.is-pressed .restart-img-normal { visibility: hidden; }
 
-.start-btn:active .start-img-normal,
-.start-btn.is-pressed .start-img-normal,
-.restart-btn:active .restart-img-normal,
-.restart-btn.is-pressed .restart-img-normal {
-    visibility: hidden;
-}
+.start-btn:active .start-img-pressed, .start-btn.is-pressed .start-img-pressed,
+.restart-btn:active .restart-img-pressed, .restart-btn.is-pressed .restart-img-pressed { visibility: visible; }
 
-.start-btn:active .start-img-pressed,
-.start-btn.is-pressed .start-img-pressed,
-.restart-btn:active .restart-img-pressed,
-.restart-btn.is-pressed .restart-img-pressed {
-    visibility: visible;
-}
-
-.taskbar-qicon-img {
-    display: block;
-    image-rendering: pixelated;
-    max-height: 32px;
-    width: auto;
-}
+.taskbar-qicon-img { display: block; image-rendering: pixelated; max-height: 32px; width: auto; }
 
 /* START MENU */
 .start-menu {
@@ -303,356 +222,732 @@ body {
     z-index: 100;
 }
 
-.start-menu.is-open {
-    display: flex;
-}
-
-.start-menu-sidebar {
-    display: block;
-    flex-shrink: 0;
-    image-rendering: pixelated;
-    -webkit-user-drag: none;
-    user-select: none;
-}
+.start-menu.is-open { display: flex; }
+.start-menu-sidebar { display: block; flex-shrink: 0; image-rendering: pixelated; -webkit-user-drag: none; user-select: none; }
 
 /* TASKBAR RIGHT */
-.taskbar-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.day-image-wrapper {
-    position: relative;
-    display: inline-block;
-    line-height: 0;
-}
+.taskbar-right { display: flex; align-items: center; gap: 10px; }
+.day-image-wrapper { position: relative; display: inline-block; line-height: 0; }
 
 .day-image {
-    display: block;
-    image-rendering: pixelated;
-    -webkit-user-drag: none;
-    user-select: none;
-    height: auto;
-    max-height: 32px;
-    width: auto;
+    display: block; image-rendering: pixelated; -webkit-user-drag: none;
+    user-select: none; height: auto; max-height: 32px; width: auto;
 }
 
-.noon-image {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: block;
-    image-rendering: pixelated;
-    -webkit-user-drag: none;
-    user-select: none;
-    height: auto;
-    width: auto;
-    pointer-events: none;
+.day-counter-text {
+    position: absolute; top: 7px; bottom: 0; right: 6px;
+    display: flex; align-items: center; padding-top: 2px;
+    font-family: 'Minecraftia', sans-serif; font-size: 14px; line-height: 1;
+    color: #2b2040; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
+    pointer-events: none; user-select: none; white-space: nowrap;
+}
+
+.time-of-day-image {
+    position: absolute; top: 4px; left: 4px; width: 23px; height: 23px;
+    display: block; image-rendering: pixelated; -webkit-user-drag: none;
+    user-select: none; pointer-events: none;
 }
 
 /* ============================================
-   WINDOW (image-based frame, draggable)
+   WINDOW (folder, reminder, etc.)
    ============================================ */
 .window-overlay {
-    position: absolute;
-    inset: 0;
-    display: none;
-    background: rgba(0, 0, 0, 0.35);
-    z-index: 200;
+    position: absolute; inset: 0; display: none;
+    background: rgba(0, 0, 0, 0.35); z-index: 200;
 }
-
-.window-overlay.is-open {
-    display: block;
-}
+.window-overlay.is-open { display: block; }
 
 .window {
     --frame-border-x: 6px;
     --frame-border-y: 6px;
     --titlebar-height: 84px;
 
-    position: absolute;
-    left: 50%;
-    top: 50%;
+    position: absolute; left: 50%; top: 50%;
     transform: translate(-50%, -50%);
-
-    width: min(85%, 720px);
-    height: min(85%, 680px);
+    width: min(85%, 720px); height: min(85%, 680px);
 
     background-image: url('images/windows/windowbase_active.png');
+    background-size: 100% 100%; background-repeat: no-repeat;
+    background-color: transparent; border: none; box-shadow: none;
+
+    display: flex; flex-direction: column;
+    padding: var(--titlebar-height) var(--frame-border-x) var(--frame-border-y) var(--frame-border-x);
+    overflow: hidden; image-rendering: pixelated; will-change: transform;
+}
+.window.is-inactive { background-image: url('images/windows/windowbase_inactive.png'); }
+
+.window-titlebar {
+    position: absolute; top: 0; left: var(--frame-border-x); right: var(--frame-border-x);
+    height: var(--titlebar-height); display: flex; align-items: center; gap: 8px;
+    padding: 16px; background: transparent; color: #000000;
+    font-size: 20px; line-height: 1; z-index: 2; cursor: move; user-select: none;
+}
+.window-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none; padding-left: 30px; margin-top: -8px; }
+
+.window-close {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0 5px; margin-top: -3px; background: transparent; border: none;
+    cursor: pointer; flex-shrink: 0;
+}
+.window-close-img { display: block; image-rendering: pixelated; -webkit-user-drag: none; pointer-events: none; }
+.window-close:focus-visible { outline: 2px solid #7fa2fa; outline-offset: 1px; }
+
+.window-content {
+    flex: 1; min-height: 0; padding: 0 8px 18px 18px;
+    overflow-y: auto; overflow-x: hidden; background: transparent;
+    position: relative; z-index: 1; color: #2b2040; font-size: 12px;
+    line-height: 1.5; white-space: pre-wrap; text-align: left;
+}
+
+/* FOLDER & REMINDER & HEART CLICKER */
+.folder-content { padding: 12px 12px 18px 16px; white-space: normal; }
+.folder-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; align-content: start; }
+.folder-item { display: flex; flex-direction: column; align-items: center; padding: 8px 6px; border-radius: 3px; text-align: center; cursor: pointer; transition: background 0.12s ease; }
+.folder-item:hover { background: rgba(129, 92, 218, 0.15); }
+.folder-item-icon { width: 40px; height: 40px; object-fit: contain; image-rendering: pixelated; margin-bottom: 6px; pointer-events: none; }
+.folder-item-label { font-size: 11px; color: #2b2040; line-height: 1.2; overflow-wrap: break-word; }
+
+.reminder-content { margin: 0 13px 48px 13px; padding: 24px 8px 8px 8px; background-image: url('images/bg/reminder_bg.png'); background-size: cover; background-position: center; color: #2b2040; font-size: 16px; }
+
+.heart-clicker-content {
+    padding: 0; overflow: hidden; cursor: pointer;
+    /* rapid clicks count as double/triple-clicks, which would otherwise select text and the image */
+    -webkit-user-select: none; user-select: none;
+    -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
+}
+.heart-clicker-content * { -webkit-user-select: none; user-select: none; -webkit-user-drag: none; }
+.heart-big { position: absolute; top: calc(50% - (var(--titlebar-height) - var(--frame-border-y)) / 2); left: 50%; width: min(50%, 220px); aspect-ratio: 1/1; height: auto; transform: translate(-50%, -50%); object-fit: contain; pointer-events: auto; cursor: pointer; }
+.heart-big.is-tapped { animation: heart-tap 0.06s linear; }
+@keyframes heart-tap { 0% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(0.95); } 100% { transform: translate(-50%, -50%) scale(1); } }
+
+.heart-clicker-hint { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); color: #b07aa0; font-size: 11px; opacity: 0.65; pointer-events: none; }
+.heart-clicker-hint.is-hidden { opacity: 0; }
+
+.floating-heart { position: absolute; pointer-events: none; object-fit: contain; transform: translate(-50%, -50%); animation: heart-float 1.4s ease-out forwards; }
+@keyframes heart-float {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+    15% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    100% { opacity: 0; transform: translate(-50%, calc(-50% - 220px)) scale(1.4); }
+}
+
+/* ============================================
+   JINE CHAT BOX (Docked Bottom Right)
+   ============================================ */
+
+/* ============================================
+   JINE LOGIN WINDOW
+   login.png is 303x320; the textbox in it spans
+   x 12-288, y 170-219. Everything below is placed
+   in % of the image so it scales with the window.
+   ============================================ */
+.jine-login-container {
+    /* Fixed in the center of the desktop; there is no drag handler, so it can't be moved */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    display: none;
+    z-index: 101;
+}
+.jine-login-container.is-visible { display: block; }
+
+.jine-login-frame {
+    position: relative;
+    width: 100%;
+    font-family: 'Minecraftia', sans-serif;
+    cursor: text;
+}
+
+.jine-login-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+/* Sits exactly over the textbox drawn in the image */
+.jine-login-field {
+    position: absolute;
+    left: 3.96%;
+    top: 53.1%;
+    width: 91.4%;
+    height: 15.6%;
+}
+
+/* Real (hidden) password input catches the typing */
+.jine-login-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px; /* avoids mobile zoom-on-focus */
+    z-index: 2;
+}
+
+/* What the person sees: asterisks + a blinking caret */
+.jine-login-mask {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: #2b2040;
+    pointer-events: none;
+    z-index: 1;
+}
+.jine-login-field.is-focused .jine-login-mask::after {
+    content: '';
+    width: 2px;
+    height: 16px;
+    margin-left: 2px;
+    background: #2b2040;
+    animation: jine-caret 1s steps(1) infinite;
+}
+@keyframes jine-caret { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+.jine-login-error {
+    position: absolute;
+    left: 4%;
+    width: 92%;
+    top: 73%;
+    text-align: center;
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+    color: #d6335b;
+}
+
+/* Expanded Chat Box (Image-based) */
+.jine-chat-container {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 340px;
+    height: 450px;
+    display: none;
+    z-index: 101;
+}
+
+.jine-chat-container.is-visible { display: block; }
+
+.jine-chat-frame {
+    width: 100%;
+    height: 100%;
+    background-image: url('images/windows/windowjine_active.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-color: transparent;
-
-    border: none;
-    box-shadow: none;
-
+    
+    /* Adjust these paddings to fit the border of your image */
+    padding: 6px 8px 18px 8px; 
+    
     display: flex;
     flex-direction: column;
-    padding:
-        var(--titlebar-height)
-        var(--frame-border-x)
-        var(--frame-border-y)
-        var(--frame-border-x);
-
-    overflow: hidden;
     image-rendering: pixelated;
 }
 
-.window.is-inactive {
-    background-image: url('images/windows/windowbase_inactive.png');
-}
-
-.window-titlebar {
-    position: absolute;
-    top: 0;
-    left: var(--frame-border-x);
-    right: var(--frame-border-x);
-    height: var(--titlebar-height);
-
+.jine-chat-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    padding: 16px;
-
-    background: transparent;
-    color: #000000;
-    font-size: 20px;
-    line-height: 1;
-    z-index: 2;
-
-    cursor: move;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: none;
-}
-
-.window-title {
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    pointer-events: none;
-    padding-left: 30px;
-    margin-top: -8px;
-}
-
-.window-close {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin: 0;
-    margin-top: -3px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
+    /* left padding clears the purple icon square baked into the frame image */
+    /* content box = height of the inner title rectangle (~23px);
+       bottom padding keeps the body where it was */
+    padding: 0 10px 11px 27px;
+    height: 30px;
     flex-shrink: 0;
-    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
 }
 
-.window-close-img {
-    display: block;
-    image-rendering: pixelated;
-    -webkit-user-drag: none;
-    user-select: none;
-    pointer-events: none;
-}
-
-.window-close:focus-visible {
-    outline: 2px solid #7fa2fa;
-    outline-offset: 1px;
-}
-
-.window-content {
-    flex: 1;
-    min-height: 0;
-    padding: 0 8px 18px 18px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background: transparent;
-    position: relative;
-    z-index: 1;
-
+.jine-chat-header-title {
+    font-family: 'Pix32', sans-serif;
+    font-size: 13px;
+    line-height: 1;
     color: #2b2040;
-    font-size: 12px;
-    line-height: 1.5;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    text-align: left;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
 }
 
-.window-image {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
+.jine-close-btn {
+    display: flex;
+    align-items: right;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 6px;
+}
+
+.jine-close-img {
+    width: 16px;
+    height: 16px;
     object-fit: contain;
     image-rendering: pixelated;
     -webkit-user-drag: none;
-    user-select: none;
 }
 
-/* ============================================
-   FOLDER WINDOW
-   ============================================ */
-.folder-content {
-    padding: 12px 12px 18px 16px;
-    white-space: normal;
-}
-
-.folder-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 8px;
-    align-content: start;
-}
-
-.folder-item {
+/* Inner Body */
+.jine-chat-body {
+    --jine-bg: #9fbfe6;
+    --jine-left: #ffffff;
+    --jine-right: #8de055;
+    --jine-text: #1a1a1a;
+    --jine-meta: #4b6286;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 8px 6px;
-    border-radius: 3px;
-    text-align: center;
-    cursor: pointer;
-    transition: background 0.12s ease;
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    min-height: 0;
+    background-color: var(--jine-bg);
+    overflow: hidden;
+    margin-bottom: 1px;
 }
 
-.folder-item:hover {
-    background: rgba(129, 92, 218, 0.15);
-}
-
-.folder-item:focus-visible {
-    outline: 2px solid #7fa2fa;
-    outline-offset: -2px;
-}
-
-.folder-item-icon {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    image-rendering: pixelated;
-    margin-bottom: 6px;
-    display: block;
-    -webkit-user-drag: none;
-    user-select: none;
-    pointer-events: none;
-}
-
-.folder-item-label {
-    font-size: 11px;
-    color: #2b2040;
-    line-height: 1.2;
-    overflow-wrap: break-word;
-    word-break: break-word;
-}
-
-/* ============================================
-   REMINDER
-   Margin shrinks the element itself, so the
-   background image visibly insets from the
-   window edges. Padding then positions the text
-   inside that visible image area.
-   ============================================ */
-.reminder-content {
-    margin: 0 13px 48px 13px;
-    padding: 24px 8px 8px 8px;
-    background-image: url('images/bg/reminder_bg.png');
+.jine-chat-bg {
+    position: absolute;
+    inset: 0;
+    background-color: var(--jine-bg);
+    background-image: url('images/jine/JINEBG.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: #2b2040;
-    font-size: 16px;
-}
-
-/* ============================================
-   HEART CLICKER
-   ============================================ */
-.heart-clicker-content {
-    padding: 0;
-    overflow: hidden;
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.heart-big {
-    position: absolute;
-    top: calc(50% - (var(--titlebar-height) - var(--frame-border-y)) / 2);
-    left: 50%;
-    width: min(50%, 220px);
-    aspect-ratio: 1 / 1;
-    height: auto;
-    transform: translate(-50%, -50%);
-    transform-origin: center center;
-    object-fit: contain;
-    image-rendering: pixelated;
-    -webkit-user-drag: none;
-    user-select: none;
-    pointer-events: auto;
-    cursor: pointer;
-}
-
-.heart-big.is-tapped {
-    animation: heart-tap 0.06s linear;
-}
-
-@keyframes heart-tap {
-    0%   { transform: translate(-50%, -50%) scale(1);    }
-    50%  { transform: translate(-50%, -50%) scale(0.95); }
-    100% { transform: translate(-50%, -50%) scale(1);    }
-}
-
-.heart-clicker-hint {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #b07aa0;
-    font-size: 11px;
-    line-height: 1.4;
-    text-align: center;
+    z-index: 0;
     pointer-events: none;
-    opacity: 0.65;
-    transition: opacity 0.6s ease;
+}
+
+.jine-messages {
+    flex: 1;
+    padding: 10px 8px 6px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    position: relative;
+    z-index: 1;
+    scrollbar-width: none;
+    overflow-x: hidden;
+}
+
+/* Date divider pill */
+.jine-date {
+    align-self: center;
+    margin: 6px 0 8px;
+    padding: 3px 10px;
+    font-family: 'Pix32', sans-serif;
+    font-size: 9px;
+    color: #fff;
+    background: rgba(70, 95, 135, 0.55);
+    border-radius: 10px;
+}
+
+/* One message = avatar + (name, bubble, meta) */
+.jine-msg {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    width: 100%;
+}
+.jine-msg.is-first { margin-top: 7px; }
+.jine-msg.lya { flex-direction: row-reverse; }  /* row-reverse packs content to the right */
+.jine-msg.lya .jine-msg-avatar { display: none; }
+
+.jine-msg-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #fff;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.jine-msg:not(.is-first) .jine-msg-avatar { visibility: hidden; }
+
+.jine-messages::-webkit-scrollbar { display: none; }
+.jine-msg-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.jine-msg-main { display: flex; flex-direction: column; min-width: 0; max-width: 82%; }
+.jine-msg { min-width: 0; }
+.jine-msg-row { min-width: 0; max-width: 100%; }
+.jine-msg.lya .jine-msg-main { align-items: flex-end; }
+
+.jine-msg-name {
+    font-family: 'Pix32', sans-serif;
+    font-size: 9px;
+    color: var(--jine-meta);
+    margin: 0 0 3px 4px;
+}
+
+.jine-msg-row { display: flex; align-items: flex-end; gap: 4px; }
+.jine-msg.lya .jine-msg-row { flex-direction: row-reverse; }
+
+.jine-bubble {
+    position: relative;
+    padding: 7px 10px;
+    font-size: 12px;
+    line-height: 1.45;
+    font-family: 'Pix32', sans-serif;
+    color: var(--jine-text);
+    word-wrap: break-word;
+    /* wrap at spaces first; a single long unbroken string (emoji spam, a link)
+       is split only when it can't fit. min-width:0 below lets the bubble shrink. */
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    width: max-content;
+    max-width: 100%;
+    min-width: 0;
+    flex: 0 1 auto;
+    border-radius: 9px;
+    box-shadow: 0 1px 0 rgba(40, 60, 100, 0.25);
+}
+.jine-msg.elle .jine-bubble { background-color: var(--jine-left); }
+.jine-msg.lya  .jine-bubble { background-color: var(--jine-right); }
+
+/* Speech tails on the first bubble of a group */
+.jine-msg.is-first .jine-bubble::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    border: 6px solid transparent;
+}
+.jine-msg.elle.is-first .jine-bubble { border-top-left-radius: 2px; }
+.jine-msg.elle.is-first .jine-bubble::before { left: -10px; border-right-color: var(--jine-left); }
+.jine-msg.lya.is-first .jine-bubble { border-top-right-radius: 2px; }
+.jine-msg.lya.is-first .jine-bubble::before { right: -10px; border-left-color: var(--jine-right); }
+
+/* "Read" + time, sitting beside the bubble */
+.jine-meta {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 8px;
+    line-height: 1.3;
+    color: var(--jine-meta);
     white-space: nowrap;
 }
+.jine-msg.lya .jine-meta { align-items: flex-end; }
 
-.heart-clicker-hint.is-hidden {
-    opacity: 0;
+/* Typing indicator */
+.jine-typing {
+    display: flex;
+    gap: 3px;
+    padding: 9px 11px;
+    background-color: var(--jine-left);
+    border-radius: 9px;
+    width: fit-content;
+    align-self: flex-start;
+    margin: 4px 0 0 38px;
+    position: relative;
+    z-index: 1;
 }
+.jine-dot {
+    width: 4px;
+    height: 4px;
+    background-color: #7d8da8;
+    border-radius: 50%;
+    animation: jine-bounce 1.4s infinite ease-in-out both;
+}
+.jine-dot:nth-child(1) { animation-delay: -0.32s; }
+.jine-dot:nth-child(2) { animation-delay: -0.16s; }
+@keyframes jine-bounce { 0%, 80%, 100% { transform: scale(0); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
 
-.floating-heart {
+/* Input bar */
+.jine-input-area {
+    display: flex;
+    flex-wrap: wrap;          /* lets the attachment preview take its own row above the input */
+    align-items: center;
+    padding: 6px 8px;
+    background-color: #f4f6fa;
+    border-top: 2px solid #c9d3e3;
+    gap: 6px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+.jine-input {
+    flex: 1;
+    min-width: 0;
+    border: 2px solid #c9d3e3;
+    border-radius: 12px;
+    background: #fff;
+    padding: 6px 10px;
+    font-family: 'Pix32', sans-serif;
+    font-size: 11px;
+    color: var(--jine-text, #1a1a1a);
+    outline: none;
+}
+.jine-input:focus { border-color: #8de055; }
+.jine-send {
+    background-color: #8de055;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 12px;
+    padding: 7px 10px;
+    font-family: 'Pix32', sans-serif;
+    font-size: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 0 #5fae30;
+}
+.jine-send:hover { background-color: #a3ee70; }
+.jine-send:active { transform: translateY(2px); box-shadow: none; }
+
+/* ---------- Emoji box ---------- */
+.jine-emoji-btn {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    padding: 0;
+    border: 2px solid #c9d3e3;
+    border-radius: 12px;
+    background: #fff;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}
+.jine-emoji-btn:hover { background: #fae1f0; }
+.jine-emoji-btn[aria-expanded="true"] { background: #fae1f0; border-color: #f297c8; }
+
+.jine-emoji-panel {
     position: absolute;
-    pointer-events: none;
+    left: 8px;
+    right: 8px;
+    bottom: calc(100% + 4px);
+    height: 190px;
+    display: none;
+    flex-direction: column;
+    background: #f4f6fa;
+    border: 2px solid #c9d3e3;
+    border-radius: 10px;
+    box-shadow: 0 2px 0 rgba(40, 60, 100, 0.25);
+    overflow: hidden;
+    z-index: 5;
+}
+.jine-emoji-panel.is-open { display: flex; }
+
+.jine-emoji-tabs {
+    display: flex;
+    flex-shrink: 0;
+    background: #e6ebf4;
+    border-bottom: 2px solid #c9d3e3;
+}
+.jine-emoji-tab {
+    flex: 1;
+    padding: 4px 0;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    line-height: 1.2;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+}
+.jine-emoji-tab:hover { background: #fae1f0; }
+.jine-emoji-tab.is-active { background: #f4f6fa; border-bottom-color: #f297c8; }
+
+.jine-emoji-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-auto-rows: 30px;
+    gap: 2px;
+    padding: 6px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #b8c4da transparent;
+}
+.jine-emoji-item {
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    font-size: 18px;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+}
+.jine-emoji-item:hover { background: #fae1f0; }
+.jine-emoji-item:active { transform: scale(0.9); }
+
+/* ---------- GIFs / media inside bubbles ---------- */
+.jine-bubble.has-media { padding: 6px; }
+.jine-bubble.has-media:not(.media-only) { padding: 7px 7px 6px; }
+.jine-media {
+    display: block;
+    /* width/height are set by the script so the GIF always fits the chat */
+    flex: none;
     object-fit: contain;
-    image-rendering: pixelated;
+    border-radius: 6px;
+    background: #e6ebf4;
+    pointer-events: none;      /* GIFs are just pictures; images and video players switch this back on */
     -webkit-user-drag: none;
     user-select: none;
-    transform: translate(-50%, -50%);
-    animation: heart-float 1.4s ease-out forwards;
-    will-change: transform, opacity;
+}
+.jine-media.is-image  { pointer-events: auto; cursor: zoom-in; }
+.jine-media.is-player { pointer-events: auto; background: #000; }
+.jine-bubble:not(.media-only) .jine-media { margin-top: 6px; }
+.jine-media + .jine-media { margin-top: 4px; }
+.jine-media-fail {
+    display: block;
+    padding: 4px 6px;
+    font-size: 10px;
+    color: #7d8da8;
+}
+a.jine-media-fail { text-decoration: underline; color: #4b6286; cursor: pointer; }
+
+/* ---------- Sending pictures / videos ---------- */
+.jine-attach-btn {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    padding: 0;
+    border: 2px solid #c9d3e3;
+    border-radius: 12px;
+    background: #fff;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+}
+.jine-attach-btn:hover { background: #fae1f0; }
+
+.jine-attach-preview {
+    flex: 0 0 100%;
+    order: -1;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 6px;
+    background: #fff;
+    border: 2px solid #c9d3e3;
+    border-radius: 10px;
+}
+.jine-attach-preview[hidden] { display: none; }
+.jine-attach-thumb {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #e6ebf4;
+}
+.jine-attach-thumb img,
+.jine-attach-thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.jine-attach-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 10px;
+    color: #2b2040;
+}
+.jine-attach-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jine-attach-size { color: #7d8da8; font-size: 9px; }
+.jine-attach-remove {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #e6ebf4;
+    color: #4b6286;
+    font-size: 11px;
+    cursor: pointer;
+}
+.jine-attach-remove:hover { background: #f297c8; color: #fff; }
+
+/* Small centered notice in the chat (e.g. "file too big") */
+.jine-notice {
+    align-self: center;
+    max-width: 90%;
+    margin: 6px 0;
+    padding: 3px 10px;
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 9px;
+    line-height: 1.4;
+    text-align: center;
+    color: #fff;
+    background: rgba(176, 60, 90, 0.75);
+    border-radius: 10px;
 }
 
-@keyframes heart-float {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
-    }
-    15% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1.2) rotate(calc(var(--rot, 0deg) * 0.3));
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, calc(-50% - 220px)) scale(1.4) rotate(var(--rot, 0deg));
-    }
+
+/* ============================================
+   Pixel-rounded input bar controls
+   Emoji button, attach button, text box and Send use a tiny
+   pixel-art 9-slice (border-image) so the corners are stepped,
+   not smooth. Each "pixel" is 2px.
+   ============================================ */
+.jine-input-area {
+    --px-box:        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Crect x='0' y='2' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='0' y='3' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='0' y='4' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='1' y='3' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='1' y='4' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='2' y='0' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='2' y='6' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='3' y='0' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='3' y='1' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='3' y='4' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='3' y='5' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='3' y='6' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='4' y='0' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='4' y='1' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='4' y='3' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='4' y='4' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='4' y='5' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='4' y='6' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='5' y='1' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='5' y='2' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='5' y='4' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='5' y='5' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='6' y='2' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='6' y='3' width='1' height='1' fill='%23aebbd6'/%3E%3Crect x='6' y='4' width='1' height='1' fill='%23aebbd6'/%3E%3C/svg%3E");
+    --px-box-hover:  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Crect x='0' y='2' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='0' y='3' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='0' y='4' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='1' y='3' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='1' y='4' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='2' y='0' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='2' y='6' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='3' y='0' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='3' y='1' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='3' y='4' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='3' y='5' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='3' y='6' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='4' y='0' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='4' y='1' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='4' y='3' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='4' y='4' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='4' y='5' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='4' y='6' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='5' y='1' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='5' y='2' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='5' y='4' width='1' height='1' fill='%23fae1f0'/%3E%3Crect x='5' y='5' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='6' y='2' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='6' y='3' width='1' height='1' fill='%23f297c8'/%3E%3Crect x='6' y='4' width='1' height='1' fill='%23f297c8'/%3E%3C/svg%3E");
+    --px-box-focus:  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Crect x='0' y='2' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='0' y='3' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='0' y='4' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='1' y='3' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='1' y='4' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='2' y='0' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='2' y='6' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='3' y='0' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='3' y='1' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='3' y='4' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='3' y='5' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='3' y='6' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='4' y='0' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='4' y='1' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='4' y='3' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='4' y='4' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='4' y='5' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='4' y='6' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='5' y='1' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='5' y='2' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='5' y='4' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='5' y='5' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='6' y='2' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='6' y='3' width='1' height='1' fill='%236fc23a'/%3E%3Crect x='6' y='4' width='1' height='1' fill='%236fc23a'/%3E%3C/svg%3E");
+    --px-send:       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Crect x='0' y='2' width='1' height='1' fill='%235fae30'/%3E%3Crect x='0' y='3' width='1' height='1' fill='%235fae30'/%3E%3Crect x='0' y='4' width='1' height='1' fill='%235fae30'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%235fae30'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%238de055'/%3E%3Crect x='1' y='3' width='1' height='1' fill='%238de055'/%3E%3Crect x='1' y='4' width='1' height='1' fill='%238de055'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%235fae30'/%3E%3Crect x='2' y='0' width='1' height='1' fill='%235fae30'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%238de055'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%238de055'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%238de055'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%238de055'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%238de055'/%3E%3Crect x='2' y='6' width='1' height='1' fill='%235fae30'/%3E%3Crect x='3' y='0' width='1' height='1' fill='%235fae30'/%3E%3Crect x='3' y='1' width='1' height='1' fill='%238de055'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%238de055'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%238de055'/%3E%3Crect x='3' y='4' width='1' height='1' fill='%238de055'/%3E%3Crect x='3' y='5' width='1' height='1' fill='%238de055'/%3E%3Crect x='3' y='6' width='1' height='1' fill='%235fae30'/%3E%3Crect x='4' y='0' width='1' height='1' fill='%235fae30'/%3E%3Crect x='4' y='1' width='1' height='1' fill='%238de055'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%238de055'/%3E%3Crect x='4' y='3' width='1' height='1' fill='%238de055'/%3E%3Crect x='4' y='4' width='1' height='1' fill='%238de055'/%3E%3Crect x='4' y='5' width='1' height='1' fill='%238de055'/%3E%3Crect x='4' y='6' width='1' height='1' fill='%235fae30'/%3E%3Crect x='5' y='1' width='1' height='1' fill='%235fae30'/%3E%3Crect x='5' y='2' width='1' height='1' fill='%238de055'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%238de055'/%3E%3Crect x='5' y='4' width='1' height='1' fill='%238de055'/%3E%3Crect x='5' y='5' width='1' height='1' fill='%235fae30'/%3E%3Crect x='6' y='2' width='1' height='1' fill='%235fae30'/%3E%3Crect x='6' y='3' width='1' height='1' fill='%235fae30'/%3E%3Crect x='6' y='4' width='1' height='1' fill='%235fae30'/%3E%3C/svg%3E");
+    --px-send-hover: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Crect x='0' y='2' width='1' height='1' fill='%235fae30'/%3E%3Crect x='0' y='3' width='1' height='1' fill='%235fae30'/%3E%3Crect x='0' y='4' width='1' height='1' fill='%235fae30'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%235fae30'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='1' y='3' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='1' y='4' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%235fae30'/%3E%3Crect x='2' y='0' width='1' height='1' fill='%235fae30'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='2' y='6' width='1' height='1' fill='%235fae30'/%3E%3Crect x='3' y='0' width='1' height='1' fill='%235fae30'/%3E%3Crect x='3' y='1' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='3' y='4' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='3' y='5' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='3' y='6' width='1' height='1' fill='%235fae30'/%3E%3Crect x='4' y='0' width='1' height='1' fill='%235fae30'/%3E%3Crect x='4' y='1' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='4' y='3' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='4' y='4' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='4' y='5' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='4' y='6' width='1' height='1' fill='%235fae30'/%3E%3Crect x='5' y='1' width='1' height='1' fill='%235fae30'/%3E%3Crect x='5' y='2' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='5' y='4' width='1' height='1' fill='%23a3ee70'/%3E%3Crect x='5' y='5' width='1' height='1' fill='%235fae30'/%3E%3Crect x='6' y='2' width='1' height='1' fill='%235fae30'/%3E%3Crect x='6' y='3' width='1' height='1' fill='%235fae30'/%3E%3Crect x='6' y='4' width='1' height='1' fill='%235fae30'/%3E%3C/svg%3E");
+    --px-send-press: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Crect x='0' y='2' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='0' y='3' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='0' y='4' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%2378c943'/%3E%3Crect x='1' y='3' width='1' height='1' fill='%2378c943'/%3E%3Crect x='1' y='4' width='1' height='1' fill='%2378c943'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='2' y='0' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%2378c943'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%2378c943'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%2378c943'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%2378c943'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%2378c943'/%3E%3Crect x='2' y='6' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='3' y='0' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='3' y='1' width='1' height='1' fill='%2378c943'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%2378c943'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%2378c943'/%3E%3Crect x='3' y='4' width='1' height='1' fill='%2378c943'/%3E%3Crect x='3' y='5' width='1' height='1' fill='%2378c943'/%3E%3Crect x='3' y='6' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='4' y='0' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='4' y='1' width='1' height='1' fill='%2378c943'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%2378c943'/%3E%3Crect x='4' y='3' width='1' height='1' fill='%2378c943'/%3E%3Crect x='4' y='4' width='1' height='1' fill='%2378c943'/%3E%3Crect x='4' y='5' width='1' height='1' fill='%2378c943'/%3E%3Crect x='4' y='6' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='5' y='1' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='5' y='2' width='1' height='1' fill='%2378c943'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%2378c943'/%3E%3Crect x='5' y='4' width='1' height='1' fill='%2378c943'/%3E%3Crect x='5' y='5' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='6' y='2' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='6' y='3' width='1' height='1' fill='%234a8f25'/%3E%3Crect x='6' y='4' width='1' height='1' fill='%234a8f25'/%3E%3C/svg%3E");
+}
+
+.jine-emoji-btn,
+.jine-attach-btn,
+.jine-input,
+.jine-send {
+    box-sizing: border-box;
+    height: 34px;
+    border: 2px solid transparent;      /* layout thickness; the picture below draws the real edge */
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    border-image-source: var(--px-box);
+    border-image-slice: 3 fill;
+    border-image-width: 6px;            /* 3 art pixels x 2px */
+    border-image-repeat: stretch;
+    image-rendering: pixelated;
+}
+
+.jine-emoji-btn,
+.jine-attach-btn {
+    width: 34px;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1;
+}
+.jine-emoji-btn:hover,
+.jine-attach-btn:hover,
+.jine-emoji-btn[aria-expanded="true"] {
+    background: transparent;
+    border-color: transparent;
+    border-image-source: var(--px-box-hover);
+}
+
+.jine-input {
+    padding: 0 12px;
+}
+.jine-input:focus {
+    border-color: transparent;
+    border-image-source: var(--px-box-focus);
+}
+
+.jine-send {
+    padding: 0 14px;
+    border-color: transparent;
+    border-image-source: var(--px-send);
+}
+.jine-send:hover {
+    background: transparent;
+    border-image-source: var(--px-send-hover);
+}
+.jine-send:active {
+    transform: none;
+    box-shadow: none;
+    border-image-source: var(--px-send-press);
 }

@@ -22,7 +22,6 @@
             <div class="desktop-area">
 
                 <div class="icon-list">
-
                     <div class="desktop-icon" role="button" tabindex="0" id="for-lya-icon" aria-label="Open For Lya folder">
                         <img src="images/desktop/folder.png" alt="" class="icon-img">
                         <div class="icon-label">For Lya</div>
@@ -37,6 +36,12 @@
                         <img src="images/desktop/reminder.png" alt="" class="icon-img">
                         <div class="icon-label">Reminder</div>
                     </div>
+
+                    <!-- JINE Desktop Icon -->
+                    <div class="desktop-icon" role="button" tabindex="0" id="jine-icon" aria-label="Open JINE Chat">
+                        <img src="images/desktop/jine.png" alt="" class="icon-img">
+                        <div class="icon-label">JINE</div>
+                    </div>
                 </div>
 
                 <!-- "For Lya" folder window -->
@@ -48,17 +53,14 @@
                         </div>
                         <div class="window-content folder-content">
                             <div class="folder-items">
-
                                 <div class="folder-item" role="button" tabindex="0" id="letter-item" aria-label="Open A Birthday Letter to Lya">
                                     <img src="images/desktop/textdoc.png" alt="" class="folder-item-icon">
                                     <div class="folder-item-label">A Birthday Letter to Lya</div>
                                 </div>
-
                                 <div class="folder-item" role="button" tabindex="0" id="three-months-item" aria-label="Open Three Months With You">
                                     <img src="images/desktop/textdoc.png" alt="" class="folder-item-icon">
                                     <div class="folder-item-label">Three Months With You</div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -141,14 +143,69 @@ Thank you for loving me, Lya. I'll keep loving you more than you expect, because
                     </div>
                 </div>
 
-            </div>
+                <!-- ========================================== -->
+                <!-- JINE CHAT BOX (Bottom Right Dock)          -->
+                <!-- ========================================== -->
+                
+                <!-- JINE LOGIN WINDOW -->
+                <div class="jine-login-container" id="jine-login-container" role="dialog" aria-modal="true" aria-label="JINE login" aria-hidden="true">
+                    <div class="jine-login-frame" id="jine-login-frame">
+                        <img src="images/jine/login.png" alt="" class="jine-login-img" draggable="false">
+                        <div class="jine-login-field">
+                            <div class="jine-login-mask" id="jine-login-mask" aria-hidden="true"></div>
+                            <input type="password" id="jine-login-input" class="jine-login-input" aria-label="Password" autocomplete="new-password" autocapitalize="off" spellcheck="false" maxlength="32">
+                        </div>
+                        <div class="jine-login-error" id="jine-login-error" role="alert"></div>
+                    </div>
+                </div>
 
+                <!-- Expanded State (Image-based Window) -->
+                <div class="jine-chat-container" id="jine-chat-container" aria-hidden="true">
+                    <div class="jine-chat-frame">
+                        <div class="jine-chat-header">
+                            <span class="jine-chat-header-title">JINE</span>
+                            <div class="jine-close-btn" id="jine-close-btn" role="button" tabindex="0" aria-label="Close">
+                                <img src="images/windows/close_button.png" alt="" class="jine-close-img">
+                            </div>
+                        </div>
+                        
+                        <div class="jine-chat-body">
+                            <div class="jine-chat-bg"></div>
+                            
+                            <div class="jine-messages" id="jine-messages">
+                                <!-- Messages injected by JS -->
+                            </div>
+                            
+                            <div class="jine-input-area">
+                                <!-- Emoji box (filled by JS) -->
+                                <div class="jine-emoji-panel" id="jine-emoji-panel" aria-hidden="true">
+                                    <div class="jine-emoji-tabs" id="jine-emoji-tabs" role="tablist"></div>
+                                    <div class="jine-emoji-grid" id="jine-emoji-grid"></div>
+                                </div>
+                                <!-- Attachment preview (shown after choosing a picture / video) -->
+                                <div class="jine-attach-preview" id="jine-attach-preview" hidden>
+                                    <div class="jine-attach-thumb" id="jine-attach-thumb"></div>
+                                    <div class="jine-attach-info">
+                                        <span class="jine-attach-name" id="jine-attach-name"></span>
+                                        <span class="jine-attach-size" id="jine-attach-size"></span>
+                                    </div>
+                                    <button type="button" id="jine-attach-remove" class="jine-attach-remove" aria-label="Remove attachment">&#x2715;</button>
+                                </div>
+                                <button type="button" id="jine-emoji-btn" class="jine-emoji-btn" aria-label="Emoji" aria-expanded="false" aria-controls="jine-emoji-panel">&#x1F642;</button>
+                                <button type="button" id="jine-attach-btn" class="jine-attach-btn" aria-label="Attach a picture or video">&#x1F4CE;</button>
+                                <input type="file" id="jine-file-input" accept="image/*,video/*" hidden>
+                                <input type="text" id="jine-input" class="jine-input" placeholder="Type a message..." autocomplete="off">
+                                <button id="jine-send" class="jine-send" role="button" tabindex="0" aria-label="Send message">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <div class="taskbar">
-
             <div class="taskbar-left">
-
                 <div class="start-menu" id="start-menu" role="menu" aria-label="Start menu">
                     <img src="images/taskbar/sidebar.png" alt="" class="start-menu-sidebar">
                     <div class="restart-btn" id="restart-btn" role="button" tabindex="0" aria-label="Restart"><img src="images/taskbar/restart_normal.png" alt="Restart" class="restart-img restart-img-normal"><img src="images/taskbar/restart_pressed.png" alt="" class="restart-img restart-img-pressed"></div>
@@ -162,33 +219,34 @@ Thank you for loving me, Lya. I'll keep loving you more than you expect, because
                     <div class="taskbar-qicon" role="button" tabindex="0" aria-label="Twitter">
                         <img src="images/taskbar/twitter.png" alt="" class="taskbar-qicon-img">
                     </div>
-                    <div class="taskbar-qicon" role="button" tabindex="0" aria-label="JINE">
+                    
+                    <div class="taskbar-qicon" role="button" tabindex="0" aria-label="JINE" id="jine-taskbar-btn">
                         <img src="images/taskbar/jine.png" alt="" class="taskbar-qicon-img">
                     </div>
+                    
                     <div class="taskbar-qicon" role="button" tabindex="0" aria-label="Computer">
                         <img src="images/taskbar/computer.png" alt="" class="taskbar-qicon-img">
                     </div>
                 </div>
 
                 <img src="images/taskbar/divider.png" alt="" class="taskbar-divider">
-
             </div>
 
             <div class="taskbar-right">
                 <div class="day-image-wrapper">
-                    <img src="images/taskbar/day_6940.png" alt="Day 1" class="day-image">
-                    <img src="images/taskbar/noon.png" alt="" class="noon-image">
+                    <img src="images/taskbar/day_counter.png" alt="Days counter" class="day-image">
+                    <span class="day-counter-text" id="day-counter-text">DAY 0</span>
+                    <img src="images/taskbar/noon.png" alt="" class="time-of-day-image" id="time-of-day-image">
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <audio id="bg-music" loop preload="auto">
         <source src="audio/angel_stagnating.mp3" type="audio/mpeg">
     </audio>
 
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -228,6 +228,21 @@
             0%, 100% { opacity: 0.4; }
             50%      { opacity: 0.85; }
         }
+
+        /* ============================================
+           REDUCED MOTION
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            .intro-overlay,
+            .intro-image,
+            .fade-overlay {
+                transition-duration: 0.01ms !important;
+            }
+            .gate-text {
+                animation: none;
+                opacity: 0.75;
+            }
+        }
     </style>
 </head>
 <body>
@@ -246,7 +261,7 @@
     </div>
 
     <div class="intro-overlay" id="intro-overlay" aria-hidden="true">
-        <img src="images/start_menu/windose20.png" alt="" class="intro-image" id="intro-image">
+        <img src="images/start_menu/windose20.png" alt="" class="intro-image" id="intro-image" aria-hidden="true">
     </div>
 
     <div class="fade-overlay" id="fade-overlay"></div>
@@ -311,8 +326,10 @@
 
         if (!gate || !introOv || !introImg) return;
 
-        const FADE_DURATION = 1500;
-        const HOLD_DURATION = 5500;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const FADE_DURATION = reduceMotion ? 0 : 1500;
+        const HOLD_DURATION = reduceMotion ? 800 : 5500;
 
         let started = false;
 
@@ -340,16 +357,13 @@
             if (started) return;
             started = true;
 
-            // 1. Play boot.mp3 — user gesture unlocks this
             if (bootAudio) {
                 bootAudio.currentTime = 0;
                 bootAudio.play().catch(() => {});
             }
 
-            // 2. Remove gate
             gate.classList.add('is-hidden');
 
-            // 3. Kick off intro (wait for image if not yet loaded)
             if (introImg.complete) {
                 runIntro();
             } else {
@@ -369,8 +383,6 @@
 
     /* ============================================
        EXIT SEQUENCE
-         Click kangel → play day.mp3 → wait 2s →
-         fade to black over 1.5s → navigate to desktop.html
        ============================================ */
     (function () {
         const enterLink   = document.getElementById('enter-link');
@@ -378,6 +390,11 @@
         const fadeOverlay = document.getElementById('fade-overlay');
 
         if (!enterLink || !fadeOverlay) return;
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const PRE_FADE_DELAY = reduceMotion ? 200 : 2000;
+        const FADE_DELAY     = reduceMotion ? 50  : 1500;
 
         let started = false;
 
@@ -396,8 +413,8 @@
 
                 setTimeout(() => {
                     window.location.href = 'desktop.html';
-                }, 1500);
-            }, 2000);
+                }, FADE_DELAY);
+            }, PRE_FADE_DELAY);
         });
     })();
     </script>
