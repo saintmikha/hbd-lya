@@ -10,6 +10,18 @@ const path = require('path');
 const app = express();
 app.use(cors());
 
+// Serve the website from the "public" folder next to this file, so the site and the chat
+// server share one address (handy with a tunnel). Put desktop.html, index.html, style.css,
+// script.js and the images / audio / font files inside it. Keep server.js and .env OUT of it.
+// Different folder? Set SITE_DIR in .env.
+const SITE_DIR = process.env.SITE_DIR || path.join(__dirname, 'public');
+if (fs.existsSync(SITE_DIR)) {
+  app.use(express.static(SITE_DIR));
+  console.log(`Serving the website from ${SITE_DIR}`);
+} else {
+  console.log(`No website folder found at ${SITE_DIR} (create a "public" folder to serve the site from here).`);
+}
+
 const server = http.createServer(app);
 // Biggest file JINE may send to Discord, in MB (Discord allows 10 MB on most servers).
 // Raise it in .env (MAX_UPLOAD_MB=25) only if your server's boost level allows bigger files.
@@ -162,7 +174,22 @@ client.on('messageCreate', (message) => {
     .catch((err) => console.error('Error relaying message:', err));
 });
 
+// Type  !clearjine  in the Discord channel to wipe the JINE chat history
+const CLEAR_COMMAND = '!clearjine';
+
+async function clearHistory(message) {
+  chatHistory = [];
+  persistHistory();
+  io.emit('chat-history', []);          // empties the chat window for anyone who has it open
+  console.log('Chat history cleared from Discord.');
+  try { await message.react('\u2705'); } catch (e) { /* no permission to react; that's fine */ }
+}
+
 async function relayMessage(message) {
+  if ((message.content || '').trim().toLowerCase() === CLEAR_COMMAND) {
+    return clearHistory(message);
+  }
+
   const media = await getMessageMedia(message);
 
   // A picture/GIF/video-only message has empty text, so only skip when there is nothing at all
@@ -267,4 +294,5 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Bridge server running on port ${PORT}`);
+  console.log(`Open http://localhost:${PORT} to see the site on this computer.`);
 });
