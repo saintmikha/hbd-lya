@@ -143,6 +143,8 @@ function setupDraggableWindow(windowId, iconId, closeId, options = {}) {
 setupDraggableWindow('folder-window',       'for-lya-icon',     'folder-close');
 setupDraggableWindow('letter-window',       'letter-item',      'letter-close',       { keepOthers: true });
 setupDraggableWindow('three-months-window', 'three-months-item', 'three-months-close', { keepOthers: true });
+// NEW: Hook up the Four Months window
+setupDraggableWindow('four-months-window',  'four-months-item', 'four-months-close',  { keepOthers: true });
 setupDraggableWindow('reminder-window',     'reminder-icon',    'reminder-close');
 setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
 
@@ -176,7 +178,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         });
     }
 
-    // Stop fast clicking from selecting text or dragging the heart image
     content.addEventListener('mousedown', (e) => { if (e.detail > 1) e.preventDefault(); });
     content.addEventListener('selectstart', (e) => e.preventDefault());
     content.addEventListener('dragstart', (e) => e.preventDefault());
@@ -320,7 +321,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
     const chatContainer = document.getElementById('jine-chat-container');
     const closeBtn      = document.getElementById('jine-close-btn');
 
-    // Login window (optional: if missing, JINE opens straight to the chat)
     const loginContainer = document.getElementById('jine-login-container');
     const loginFrame     = document.getElementById('jine-login-frame');
     const loginField     = loginContainer ? loginContainer.querySelector('.jine-login-field') : null;
@@ -328,13 +328,11 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
     const loginMask      = document.getElementById('jine-login-mask');
     const loginError     = document.getElementById('jine-login-error');
 
-    // Emoji box (optional)
     const emojiBtn   = document.getElementById('jine-emoji-btn');
     const emojiPanel = document.getElementById('jine-emoji-panel');
     const emojiTabs  = document.getElementById('jine-emoji-tabs');
     const emojiGrid  = document.getElementById('jine-emoji-grid');
 
-    // Attachment (picture / video sending) elements (optional)
     const attachBtn     = document.getElementById('jine-attach-btn');
     const fileInput     = document.getElementById('jine-file-input');
     const attachPreview = document.getElementById('jine-attach-preview');
@@ -351,18 +349,14 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
     
     if (!chatContainer || !closeBtn || !messagesArea || !inputField || !sendBtn) return;
 
-    const SERVER_URL = 'https://hbd-lya.onrender.com';
+    const SERVER_URL = 'http://localhost:3000';
 
-    // --- Open / Close Logic ---
-    // Closing terminates the session (socket disconnects). The messages already
-    // on screen are kept, and the server re-sends its history on reconnect.
     let socket = null;
 
     function openChat() {
         chatContainer.classList.add('is-visible');
         chatContainer.setAttribute('aria-hidden', 'false');
 
-        // Reconnect if the session was terminated
         if (socket && !socket.connected && !socket.active) socket.connect();
 
         inputField.focus();
@@ -381,8 +375,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         if (socket) socket.disconnect();
     }
 
-    // Listeners
-    // --- Emoji Box ---
     const EMOJI_SETS = [
         { icon: '\u{1F642}', name: 'Faces', list: ['\u{1F600}','\u{1F603}','\u{1F604}','\u{1F601}','\u{1F606}','\u{1F605}','\u{1F602}','\u{1F923}','\u{1F972}','\u263A\uFE0F','\u{1F60A}','\u{1F607}','\u{1F642}','\u{1F643}','\u{1F609}','\u{1F60C}','\u{1F60D}','\u{1F970}','\u{1F618}','\u{1F617}','\u{1F619}','\u{1F61A}','\u{1F60B}','\u{1F61B}','\u{1F61C}','\u{1F92A}','\u{1F61D}','\u{1F917}','\u{1F92D}','\u{1F92B}','\u{1F914}','\u{1F610}','\u{1F611}','\u{1F636}','\u{1F60F}','\u{1F612}','\u{1F644}','\u{1F62C}','\u{1F62E}','\u{1F634}','\u{1F62A}','\u{1F622}','\u{1F62D}','\u{1F97A}','\u{1F624}','\u{1F620}','\u{1F621}','\u{1F975}','\u{1F976}','\u{1F631}','\u{1F628}','\u{1F630}','\u{1F613}','\u{1F633}','\u{1F974}','\u{1F922}'] },
         { icon: '\u2764\uFE0F', name: 'Love', list: ['\u2764\uFE0F','\u{1F9E1}','\u{1F49B}','\u{1F49A}','\u{1F499}','\u{1F49C}','\u{1F5A4}','\u{1F90D}','\u{1F90E}','\u{1F494}','\u2763\uFE0F','\u{1F495}','\u{1F49E}','\u{1F493}','\u{1F497}','\u{1F496}','\u{1F498}','\u{1F49D}','\u{1F49F}','\u{1F48C}','\u{1F48B}','\u{1F339}','\u{1F338}','\u{1F490}','\u2728','\u2B50','\u{1F31F}','\u{1F4AB}','\u{1F380}','\u{1F353}','\u{1F352}','\u{1F382}','\u{1F381}','\u{1F389}','\u{1F942}','\u{1F48D}'] },
@@ -445,7 +437,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         });
         showEmojiSet(0);
 
-        // Keep focus (and the caret position) in the text box while clicking around the emoji box
         emojiBtn.addEventListener('mousedown',   (e) => e.preventDefault());
         emojiPanel.addEventListener('mousedown', (e) => e.preventDefault());
 
@@ -458,7 +449,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
             inputField.focus();
         });
 
-        // Click outside or Escape closes it
         document.addEventListener('mousedown', (e) => {
             if (!emojiPanel.classList.contains('is-open')) return;
             if (emojiPanel.contains(e.target) || emojiBtn.contains(e.target)) return;
@@ -469,8 +459,7 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         });
     }
 
-    // --- Attachments: pictures / videos the person sends ---
-    const MAX_UPLOAD_MB = 10;      // Discord's limit on most servers; keep in step with MAX_UPLOAD_MB in the server's .env
+    const MAX_UPLOAD_MB = 10;
     let pendingFile = null;
     let pendingThumbUrl = null;
 
@@ -479,13 +468,11 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         return Math.max(1, Math.round(bytes / 1024)) + ' KB';
     }
 
-    // Long file names are shortened: first 8 characters + "..." + the extension
-    // e.g. ABCDEFGHIJKLMNOPQ.jpg -> ABCDEFGH....jpg
     function shortFileName(name) {
         const dot = name.lastIndexOf('.');
         const hasExt = dot > 0 && dot < name.length - 1;
         const base = hasExt ? name.slice(0, dot) : name;
-        const ext  = hasExt ? name.slice(dot) : '';          // includes the dot
+        const ext  = hasExt ? name.slice(dot) : '';
         if (base.length <= 8) return name;
         return base.slice(0, 8) + '...' + ext;
     }
@@ -534,7 +521,7 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         attachThumb.appendChild(thumb);
         const fullName = file.name || (isVideo ? 'video' : 'picture');
         attachName.textContent = shortFileName(fullName);
-        attachName.title = fullName;                          // full name on hover
+        attachName.title = fullName;
         attachSize.textContent = formatSize(file.size);
         attachPreview.hidden = false;
         inputField.focus();
@@ -545,7 +532,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         fileInput.addEventListener('change', () => setAttachment(fileInput.files && fileInput.files[0]));
         attachRemove.addEventListener('click', () => { clearAttachment(); inputField.focus(); });
 
-        // Pasting a picture (e.g. a screenshot) into the text box attaches it
         inputField.addEventListener('paste', (e) => {
             const files = e.clipboardData && e.clipboardData.files;
             if (!files || !files.length) return;
@@ -554,9 +540,8 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         });
     }
 
-    // --- Login Logic ---
     const PASSWORD       = '3773<3U';
-    const REMEMBER_LOGIN = true;    // true = only ask once per page load (a refresh asks again); false = ask every time JINE is opened
+    const REMEMBER_LOGIN = true;
     let isLoggedIn = false;
 
     const hasLogin = !!(loginContainer && loginFrame && loginField && loginInput && loginMask && loginError);
@@ -596,7 +581,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         }
     }
 
-    // Clicking JINE (desktop icon / taskbar) goes through the login window
     function launchJine() {
         if (chatContainer.classList.contains('is-visible')) {
             inputField.focus();
@@ -619,10 +603,8 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         loginInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') { e.preventDefault(); submitPassword(); }
         });
-        // Clicking anywhere on the login image focuses the textbox
         loginFrame.addEventListener('click', () => loginInput.focus());
 
-        // Escape or clicking outside dismisses the login window
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && loginContainer.classList.contains('is-visible')) closeLogin();
         });
@@ -642,13 +624,11 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeChat(); }
     });
 
-    // --- Socket.IO Logic ---
     if (typeof io === 'undefined') {
         console.warn('[JINE] socket.io library not loaded.');
         return;
     }
 
-    // autoConnect is off: the socket only connects once the person is logged in
     socket = io(SERVER_URL, {
         autoConnect: false,
         transports: ['websocket', 'polling']
@@ -666,21 +646,13 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         return isNaN(d.getTime()) ? new Date() : d;
     }
 
-    // --- GIF / media support ---------------------------------------------
-    // A message can carry media two ways:
-    //   1. the server sends  media: [{ url, type?, width?, height? }]
-    //   2. the text itself contains a direct GIF link (.gif / .mp4 / .webm)
-    // Tenor/Giphy/Klipy/Twitter *page* links can't be turned into a GIF in the browser, so the
-    // server resolves those from Discord's embed and sends them in `media`.
     const URL_RE      = /https?:\/\/[^\s<>]+/gi;
     const MEDIA_EXT   = /\.(gif|webp|png|jpe?g|avif|mp4|webm|mov)$/i;
-    // Pages that Discord turns into a GIF embed: Tenor, Giphy, Klipy, and tweets
     const GIF_PAGE_RE = /^https?:\/\/(?:[\w-]+\.)?(?:tenor\.com|giphy\.com|klipy\.com|twitter\.com|x\.com|fxtwitter\.com|vxtwitter\.com|fixupx\.com)\//i;
 
     function safeUrl(u) {
         try {
             const p = new URL(u);
-            // blob: = a file the person just picked, shown straight away before the server has it
             return (p.protocol === 'http:' || p.protocol === 'https:' || p.protocol === 'blob:') ? p.href : null;
         } catch (e) { return null; }
     }
@@ -694,8 +666,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         return /\.(mp4|webm|mov)$/i.test(path) ? 'video' : 'image';
     }
 
-    // A "looping" video is really a GIF (Tenor/Giphy/Klipy/Twitter GIF): autoplay, muted, loop.
-    // Any other video gets a normal player with controls and sound.
     function isLoopingVideo(item) {
         if (typeof item.animated === 'boolean') return item.animated;
         return /(?:^|\.)(?:tenor|giphy|klipy)\.com\/|video\.twimg\.com\/tweet_video\//i.test(item.url.replace(/^https?:\/\//, ''));
@@ -714,9 +684,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         return out;
     }
 
-    // Pull direct media links out of the text; tidy leftover page links (Tenor, Twitter, ...)
-    // If the server already sent media for this message, links in the text are only removed
-    // (never added again), so the same picture can't appear twice.
     function splitTextAndMedia(text, media) {
         const items = normalizeMedia(media);
         const fromServer = items.length > 0;
@@ -729,7 +696,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
                 if (!fromServer && !items.some((o) => o.url === url)) items.push({ url });
                 return '';
             }
-            // the media itself is shown, so drop its page link from the text
             if (items.length && GIF_PAGE_RE.test(url)) return '';
             return link;
         });
@@ -737,15 +703,12 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         return { text: rest, items };
     }
 
-    // Size every picture / GIF / video to fit the chat: scaled down (never up) so it fits both the
-    // width of a message bubble and a share of the chat height, keeping its proportions.
     const MEDIA_MAX_W = 240;
     const MEDIA_MAX_H = 240;
 
     function mediaLimits() {
-        const areaW = messagesArea.clientWidth  || 324;   // 0 while the chat is hidden
+        const areaW = messagesArea.clientWidth  || 324;
         const areaH = messagesArea.clientHeight || 300;
-        // a bubble is at most 82% of the chat width, minus its padding and the time label beside it
         const maxW = Math.max(60, Math.min(MEDIA_MAX_W, Math.floor(areaW * 0.82) - 58));
         const maxH = Math.max(60, Math.min(MEDIA_MAX_H, Math.floor(areaH * 0.7)));
         return { maxW, maxH };
@@ -754,7 +717,7 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
     function fitMedia(el) {
         let w = el.naturalWidth  || el.videoWidth  || Number(el.dataset.w) || 0;
         let h = el.naturalHeight || el.videoHeight || Number(el.dataset.h) || 0;
-        if (!w || !h) { w = 160; h = 120; }                // placeholder until the real size is known
+        if (!w || !h) { w = 160; h = 120; }
         const { maxW, maxH } = mediaLimits();
         const scale = Math.min(1, maxW / w, maxH / h);
         el.style.width  = Math.max(1, Math.round(w * scale)) + 'px';
@@ -765,7 +728,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         messagesArea.querySelectorAll('.jine-media').forEach(fitMedia);
     }
 
-    // Re-fit when the chat is shown, hidden or resized
     if (window.ResizeObserver) new ResizeObserver(fitAllMedia).observe(messagesArea);
     window.addEventListener('resize', fitAllMedia);
 
@@ -782,16 +744,13 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
             el.addEventListener('loadedmetadata', () => { fitMedia(el); scrollToBottom(); });
             el.addEventListener('loadeddata', scrollToBottom);
             if (looping) {
-                // GIF-style: silent, automatic, endless
                 el.muted = true; el.loop = true; el.autoplay = true; el.preload = 'auto';
                 el.setAttribute('muted', '');
                 el.disablePictureInPicture = true;
                 const p = el.play(); if (p && typeof p.catch === 'function') p.catch(() => {});
             } else {
-                // Regular video: player with controls, sound on, loads only when played
                 el.controls = true; el.preload = 'metadata';
                 el.setAttribute('controlslist', 'nodownload noremoteplayback');
-                // #t=0.1 makes browsers show the first frame as a thumbnail
                 if (!src.includes('#')) src += '#t=0.1';
             }
         } else {
@@ -800,18 +759,16 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
             el.loading = 'eager';
             el.draggable = false;
             el.addEventListener('load', () => { fitMedia(el); scrollToBottom(); });
-            // click a picture to open it full size in a new tab
             el.addEventListener('click', () => window.open(item.url, '_blank', 'noopener,noreferrer'));
         }
 
         el.className = 'jine-media' + (kind === 'video' && !looping ? ' is-player' : kind === 'image' ? ' is-image' : '');
         el.referrerPolicy = 'no-referrer';
         if (item.width && item.height) { el.dataset.w = item.width; el.dataset.h = item.height; }
-        fitMedia(el);                                       // right size straight away if the server sent dimensions
+        fitMedia(el);
         el.src = src;
         let triedBackup = false;
         el.addEventListener('error', () => {
-            // first failure: try Discord's backup copy of the file
             if (!triedBackup && item.fallback) {
                 triedBackup = true;
                 console.warn('[JINE] media failed, trying backup address:', item.url);
@@ -836,7 +793,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
         const parts = splitTextAndMedia(text, media);
         text = parts.text;
 
-        // Date divider when the day changes
         const dayKey = when.toDateString();
         if (dayKey !== lastDay) {
             lastDay = dayKey;
@@ -956,7 +912,6 @@ setupDraggableWindow('heart-window',        'heart-clicker',    'heart-close');
     });
 
     function sendFile(file, text) {
-        // Show it in the chat right away from the local file
         const localUrl = URL.createObjectURL(file);
         addMessage(text, 'lya', null, [{ url: localUrl, type: file.type, animated: false }]);
         inputField.value = '';
